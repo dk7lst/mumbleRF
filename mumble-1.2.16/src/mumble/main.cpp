@@ -56,6 +56,7 @@
 #include "CrashReporter.h"
 #include "FileEngine.h"
 #include "SocketRPC.h"
+#include "ExternalPTT.h"
 
 #ifdef USE_STATIC
 // Keep in sync with mumble.pro QTPLUGIN list.
@@ -370,6 +371,8 @@ int main(int argc, char **argv) {
 	g.o->setActive(g.s.os.bEnable);
 
 	g.lcd = new LCD();
+
+	if(g.extptt) g.extptt->init();
 
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,

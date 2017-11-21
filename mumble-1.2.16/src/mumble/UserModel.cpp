@@ -45,6 +45,7 @@
 #include "ServerHandler.h"
 #include "Usage.h"
 #include "User.h"
+#include "ExternalPTT.h"
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
@@ -1298,6 +1299,7 @@ void UserModel::userTalkingChanged() {
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	updateOverlay();
+	if(g.extptt) g.extptt->setSQL(p->tsState != Settings::Passive);
 }
 
 void UserModel::userMuteDeafChanged() {

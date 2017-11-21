@@ -55,6 +55,7 @@ class LCD;
 class BonjourClient;
 class OverlayClient;
 class CELTCodec;
+class ExternalPTT;
 
 class QNetworkAccessManager;
 
@@ -102,7 +103,7 @@ public:
 	unsigned int uiImageLength;
 	bool bQuit;
 	QString qsCurrentStyle;
-
+	ExternalPTT *extptt;
 	bool bHappyEaster;
 	static const char ccHappyEaster[];
 

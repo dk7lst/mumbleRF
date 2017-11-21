@@ -31,6 +31,7 @@
 #include "mumble_pch.hpp"
 
 #include "Global.h"
+#include "ExternalPTT.h"
 
 Global *Global::g_global_struct;
 
@@ -152,9 +153,12 @@ Global::Global() {
 		qdBasePath.mkpath(QLatin1String("Overlay"));
 
 	qs->setIniCodec("UTF-8");
+
+	extptt = new ExternalPTT();
 }
 
 Global::~Global() {
+	delete extptt;
 	delete qs;
 }
 
