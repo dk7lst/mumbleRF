@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConnectDialog</class>
+ <widget class="QDialog" name="ConnectDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>574</width>
+    <height>366</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Mumble Server Connect</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="ServerView" name="qtwServers">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::DragDrop</enum>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="autoExpandDelay">
+      <number>250</number>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>true</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>true</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Servername</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Ping</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Users</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="qdbbButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+  <action name="qaFavoriteRemove">
+   <property name="text">
+    <string>Remove from Favorites</string>
+   </property>
+  </action>
+  <action name="qaFavoriteEdit">
+   <property name="text">
+    <string>&amp;Edit...</string>
+   </property>
+  </action>
+  <action name="qaFavoriteAddNew">
+   <property name="text">
+    <string>&amp;Add New...</string>
+   </property>
+   <property name="toolTip">
+    <string>Add custom server</string>
+   </property>
+  </action>
+  <action name="qaFavoriteAdd">
+   <property name="text">
+    <string>Add to &amp;Favorites</string>
+   </property>
+  </action>
+  <action name="qaUrl">
+   <property name="text">
+    <string>Open &amp;Webpage</string>
+   </property>
+  </action>
+  <action name="qaShowReachable">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;Reachable</string>
+   </property>
+   <property name="toolTip">
+    <string>Show all servers that respond to ping</string>
+   </property>
+  </action>
+  <action name="qaShowPopulated">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;Populated</string>
+   </property>
+   <property name="toolTip">
+    <string>Show all servers with users</string>
+   </property>
+  </action>
+  <action name="qaShowAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;All</string>
+   </property>
+   <property name="toolTip">
+    <string>Show all servers</string>
+   </property>
+  </action>
+  <action name="qaFavoriteCopy">
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy favorite link to clipboard</string>
+   </property>
+  </action>
+  <action name="qaFavoritePaste">
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste favorite from clipboard</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ServerView</class>
+   <extends>QTreeWidget</extends>
+   <header>ConnectDialog.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>qdbbButtonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>365</x>
+     <y>270</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>365</x>
+     <y>513</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>qdbbButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ConnectDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>459</x>
+     <y>275</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
