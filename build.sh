@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # In Verzeichnis der aktuellen Version wechseln:
-cd mumble-1.2.16
+cd mumble-1.2.19
 
 # Makefiles erzeugen.
 # Die diversen Fehlermeldungen scheinen normal zu sein weil ein Teil

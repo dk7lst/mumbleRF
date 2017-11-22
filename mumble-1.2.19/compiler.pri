@@ -1,5 +1,8 @@
 CONFIG *= warn_on
 
+include(buildenv.pri)
+include(cplusplus.pri)
+
 win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
