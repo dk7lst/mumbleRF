@@ -6,7 +6,7 @@ cd mumble-1.2.19
 # Makefiles erzeugen.
 # Die diversen Fehlermeldungen scheinen normal zu sein weil ein Teil
 # der Dateien erst zur Laufzeit gebaut wird?
-qmake -recursive main.pro CONFIG+=no-server CONFIG+=no-crash-report CONFIG+=no-update CONFIG+=no-bonjour CONFIG+=no-bundled-celt CONFIG+=no-bundled-speex CONFIG+=no-bundled-opus "$@"
+qmake -recursive main.pro CONFIG+=no-server CONFIG+=no-crash-report CONFIG+=no-update CONFIG+=no-bonjour "$@"
 
 # Bauen:
 make clean

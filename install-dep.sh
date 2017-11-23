@@ -7,5 +7,4 @@ apt-get install build-essential pkg-config qt4-dev-tools libqt4-dev libspeex1 \
                 libspeechd-dev libzeroc-ice-dev libpulse-dev \
                 libcap-dev libspeexdsp-dev libprotobuf-dev protobuf-compiler \
                 libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \
-                libg15daemon-client-dev libxi-dev git-core libopus-dev \
-                libcelt-dev
+                libg15daemon-client-dev libxi-dev git-core
