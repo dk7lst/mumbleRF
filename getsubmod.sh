@@ -1,4 +1,6 @@
 #!/bin/sh
+cd mumble-1.2.19
+
 # Get modules from .gitmodules when 'git submodules' isn't working:
 rm -f speex/.keep celt-0.7.0-src/.keep celt-0.11.0-src/.keep opus-src/.keep sbcelt-src/.keep 3rdparty/mach-override-src/.keep
 git clone https://git.xiph.org/speex.git speex

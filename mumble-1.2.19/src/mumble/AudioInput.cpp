@@ -803,6 +803,8 @@ void AudioInput::encodeAudioFrame() {
 		bIsSpeech = false;
 	}
 
+	if(g.extptt) bIsSpeech |= g.extptt->getPTT();
+
 	if (bIsSpeech) {
 		iSilentFrames = 0;
 	} else {
@@ -810,8 +812,6 @@ void AudioInput::encodeAudioFrame() {
 		if (iSilentFrames > 500)
 			iFrameCounter = 0;
 	}
-
-	if(g.extptt) bIsSpeech |= g.extptt->getPTT();
 
 	if (p) {
 		if (! bIsSpeech)
