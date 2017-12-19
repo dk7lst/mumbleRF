@@ -1,0 +1,15 @@
+To install SBCELT, simply run
+
+ $ make  # or 'gmake' on FreeBSD to invoke GNU make
+
+in this directory.  If the build succeeds, there should be
+a 'libsbcelt.a' file in the lib directory, and a 'sbcelt-helper'
+in the helper directory. Beside these two files, the only other
+file needed to make use of SBCELT is the 'sbcelt.h' header which
+lives in the root of the source tree.
+
+Proper locations for these files depend on the environment
+that the library is intended to run within.  Currently,
+SBCELT is mostly meant to be embedded into other applications,
+and ass such, the only sane default is to delegate the
+installation process to the program embedding SBCELT.

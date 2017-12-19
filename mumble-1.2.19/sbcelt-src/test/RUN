@@ -1,0 +1,11 @@
+# This is a list of all tests to run
+
+futex-expected-value
+futex-timeout
+alloc-ensure-align8
+alloc-exhaust
+alloc-arena-alignment
+alloc-ctor
+pdeath
+pdeath-racy
+pdeath-racy2
