@@ -154,11 +154,15 @@ Global::Global() {
 
 	qs->setIniCodec("UTF-8");
 
+#ifdef USE_EXTPTT
 	extptt = new ExternalPTT();
+#endif
 }
 
 Global::~Global() {
+#ifdef USE_EXTPTT
 	delete extptt;
+#endif
 	delete qs;
 }
 

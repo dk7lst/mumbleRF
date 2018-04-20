@@ -320,11 +320,13 @@ struct Settings {
 	/// Removes the add and edit options in the connect dialog if set.
 	bool disableConnectDialogEditing;
 
-	// Parameter für ExternalPTT:
+	// Parameters for ExternalPTT:
+#ifdef USE_EXTPTT
 	int ExtPTT_Mode;
 	int ExtPTT_PinPTT, ExtPTT_PinSQL;
 	QString ExtPTT_SerialDevice;
 	bool ExtPTT_InvertPTT, ExtPTT_InvertSQL;
+#endif
 	
 	// Config updates
 	unsigned int uiUpdateCounter;

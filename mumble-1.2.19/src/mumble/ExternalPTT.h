@@ -1,3 +1,4 @@
+#ifdef USE_EXTPTT
 #ifndef EXTERNALPTT_H_
 #define EXTERNALPTT_H_
 #include <termios.h>
@@ -24,3 +25,4 @@ protected:
   struct termios m_termios;
 };
 #endif // EXTERNALPTT_H_
+#endif // USE_EXTPTT

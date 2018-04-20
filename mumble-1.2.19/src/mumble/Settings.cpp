@@ -380,12 +380,14 @@ Settings::Settings() {
 	disablePublicList = false;
 	disableConnectDialogEditing = false;
 
+#ifdef USE_EXTPTT
 	ExtPTT_Mode = 0;
-	ExtPTT_PinPTT = 17; // Input um Mumble auf TX zu schalten
-	ExtPTT_PinSQL = 27; // Ausgang wenn Mumble Audio empfängt
+	ExtPTT_PinPTT = 17; // Input to switch Mumble to TX-mode
+	ExtPTT_PinSQL = 27; // Output to set when Mumble receives audio
 	ExtPTT_SerialDevice = QLatin1String("/dev/ttyUSB0");
 	ExtPTT_InvertPTT = true;
 	ExtPTT_InvertSQL = false;
+#endif
 
 	// Config updates
 	uiUpdateCounter = 0;
@@ -721,12 +723,14 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
+#ifdef USE_EXTPTT
 	SAVELOAD(ExtPTT_Mode, "extptt/mode");
 	SAVELOAD(ExtPTT_PinPTT, "extptt/pttpin");
 	SAVELOAD(ExtPTT_PinSQL, "extptt/sqlpin");
 	SAVELOAD(ExtPTT_SerialDevice, "extptt/serialdevice");
 	SAVELOAD(ExtPTT_InvertPTT, "extptt/invertptt");
 	SAVELOAD(ExtPTT_InvertSQL, "extptt/invertsql");
+#endif
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -1020,12 +1024,14 @@ void Settings::save() {
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
+#ifdef USE_EXTPTT
 	SAVELOAD(ExtPTT_Mode, "extptt/mode");
 	SAVELOAD(ExtPTT_PinPTT, "extptt/pttpin");
 	SAVELOAD(ExtPTT_PinSQL, "extptt/sqlpin");
 	SAVELOAD(ExtPTT_SerialDevice, "extptt/serialdevice");
 	SAVELOAD(ExtPTT_InvertPTT, "extptt/invertptt");
 	SAVELOAD(ExtPTT_InvertSQL, "extptt/invertsql");
+#endif
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");

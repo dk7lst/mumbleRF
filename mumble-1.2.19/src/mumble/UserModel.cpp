@@ -1299,7 +1299,9 @@ void UserModel::userTalkingChanged() {
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 	updateOverlay();
+#ifdef USE_EXTPTT
 	if(g.extptt) g.extptt->setSQL(p->tsState != Settings::Passive);
+#endif
 }
 
 void UserModel::userMuteDeafChanged() {
