@@ -4,8 +4,9 @@
 
 #include "Global.h"
 
-#define RTPNetworkTransceiverInit m_pRTPNetworkTransceiver->init(g.s.RTPAudio_u16LocalPort, g.s.RTPAudio_qsServerIP, g.s.RTPAudio_u16ServerPort,\
- g.s.RTPAudio_SampleRate, sizeof(short), g.s.RTPAudio_PayLoadType, g.s.RTPAudio_SamplesPerPacket)
+#define RTPNetworkTransceiverInit {bRunning = m_pRTPNetworkTransceiver->init(g.s.RTPAudio_u16LocalPort, g.s.RTPAudio_qsServerIP, g.s.RTPAudio_u16ServerPort,\
+ g.s.RTPAudio_SampleRate, sizeof(short), g.s.RTPAudio_PayLoadType, g.s.RTPAudio_SamplesPerPacket);\
+ if(!bRunning) qWarning("RTPNetworkTransceiver::init() failed! Aborting!");}
 
 // Class for registering an Audio Input Device Type:
 class RTPAudioInputRegistrar : public AudioInputRegistrar {
@@ -126,12 +127,26 @@ void RTPAudioInput::run() {
   const int ciMaxAllowedSamplesPerPacket = SAMPLE_RATE;
   char inbuf[ciMaxAllowedSamplesPerPacket * m_pRTPNetworkTransceiver->getSampleSizeInBytes()];
 
+  bool bLastPTT = false;
   while(bRunning) {
-    int iSamplesReceived = m_pRTPNetworkTransceiver->receive(inbuf, sizeof inbuf);
+    int iSamplesReceived = m_pRTPNetworkTransceiver->receive(inbuf, sizeof inbuf, m_bPTT);
+    if(m_bPTT != bLastPTT) {
+      printf("PTT state changed: %d\n", m_bPTT);
+      bLastPTT = m_bPTT;
+    }
+    //printf("RTPAudioInput::run(): %d samples received! PTT=%d\n", iSamplesReceived, m_bPTT);
     if(iSamplesReceived > 0) {
-      //printf("RTPAudioInput::run(): %d samples received!\n", iSamplesReceived);
+      //printf("RTPAudioInput::run(): %d samples received! PTT=%d\n", iSamplesReceived, m_bPTT);
+      if(g.s.RTPAudio_UseBigEndian) {
+        short *wbuf = (short *)inbuf;
+        for(int i = 0; i < iSamplesReceived; ++i) {
+          *wbuf = qToLittleEndian(*wbuf);
+          ++wbuf;
+        }
+      }
       addMic(inbuf, iSamplesReceived);
     }
+    else if(iSamplesReceived < 0) printf("RTPNetworkTransceiver::receive() failed with error code %d!\n", iSamplesReceived);
   }
 }
 

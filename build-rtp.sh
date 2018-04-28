@@ -11,7 +11,7 @@ cd mumble-1.2.19
 #   extptt-serial: External PTT-support using serial port handshake lines.
 #   extptt-wiringpi: External PTT-support for Raspberry Pi GPIO-port using WiringPi-library.
 #   rtpaudio: Virtual network soundcard using Real-time Transport Protocol (RTP).
-qmake -recursive main.pro CONFIG+=no-server CONFIG+=no-crash-report CONFIG+=no-update CONFIG+=no-bonjour CONFIG+=extptt-serial "$@"
+qmake -recursive main.pro CONFIG+=no-server CONFIG+=no-crash-report CONFIG+=no-update CONFIG+=no-bonjour CONFIG+=rtpaudio "$@"
 
 # Start build:
 make clean

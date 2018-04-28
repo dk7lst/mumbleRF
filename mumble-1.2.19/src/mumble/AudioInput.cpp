@@ -806,6 +806,9 @@ void AudioInput::encodeAudioFrame() {
 #ifdef USE_EXTPTT
 	if(g.extptt) bIsSpeech |= g.extptt->getPTT();
 #endif
+#ifdef USE_RTPAUDIO
+	if(g.ai) bIsSpeech |= g.ai->getPTT();
+#endif
 
 	if (bIsSpeech) {
 		iSilentFrames = 0;
