@@ -320,14 +320,20 @@ struct Settings {
 	/// Removes the add and edit options in the connect dialog if set.
 	bool disableConnectDialogEditing;
 
-	// Parameters for ExternalPTT:
 #ifdef USE_EXTPTT
 	int ExtPTT_Mode;
 	int ExtPTT_PinPTT, ExtPTT_PinSQL;
 	QString ExtPTT_SerialDevice;
 	bool ExtPTT_InvertPTT, ExtPTT_InvertSQL;
 #endif
-	
+
+#ifdef USE_RTPAUDIO
+	QString RTPAudio_qsServerIP;
+	quint16 RTPAudio_u16LocalPort, RTPAudio_u16ServerPort;
+	int RTPAudio_SampleRate, RTPAudio_PayLoadType, RTPAudio_SamplesPerPacket;
+	bool RTPAudio_UseBigEndian;
+#endif
+
 	// Config updates
 	unsigned int uiUpdateCounter;
 

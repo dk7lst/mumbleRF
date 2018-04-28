@@ -129,6 +129,9 @@ class AudioOutput : public QThread {
 		const float *getSpeakerPos(unsigned int &nspeakers);
 		static float calcGain(float dotproduct, float distance);
 		unsigned int getMixerFreq() const;
+#ifdef USE_RTPAUDIO
+		virtual void setSQL(bool state) {}
+#endif
 };
 
 #endif

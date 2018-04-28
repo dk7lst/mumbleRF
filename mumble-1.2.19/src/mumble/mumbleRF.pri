@@ -17,3 +17,11 @@ extptt {
 	HEADERS *= ExternalPTT.h
 	SOURCES *= ExternalPTT.cpp
 }
+
+# Virtual network soundcard using Real-time Transport Protocol (RTP).
+# https://en.wikipedia.org/wiki/Real-time_Transport_Protocol
+rtpaudio {
+	DEFINES *= USE_RTPAUDIO
+	HEADERS *= RTPAudio.h RTPNetworkTransceiver.h
+	SOURCES *= RTPAudio.cpp RTPNetworkTransceiver.cpp
+}

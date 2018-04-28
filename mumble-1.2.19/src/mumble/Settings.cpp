@@ -389,6 +389,16 @@ Settings::Settings() {
 	ExtPTT_InvertSQL = false;
 #endif
 
+#ifdef USE_RTPAUDIO
+	RTPAudio_u16LocalPort = 30300;
+	RTPAudio_qsServerIP = QString::fromUtf8("127.0.0.1");
+	RTPAudio_u16ServerPort = 30300;
+	RTPAudio_SampleRate = 44100;
+	RTPAudio_PayLoadType = 11; // 44100 Hz, 16 bit signed short, big endian; see https://tools.ietf.org/html/rfc3551#section-4.5.11
+	RTPAudio_SamplesPerPacket = RTPAudio_SampleRate / 50;
+	RTPAudio_UseBigEndian = true;
+#endif
+
 	// Config updates
 	uiUpdateCounter = 0;
 
@@ -732,6 +742,16 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(ExtPTT_InvertSQL, "extptt/invertsql");
 #endif
 
+#ifdef USE_RTPAUDIO
+	SAVELOAD(RTPAudio_u16LocalPort, "rtpaudio/localport");
+	SAVELOAD(RTPAudio_qsServerIP, "rtpaudio/serverip");
+	SAVELOAD(RTPAudio_u16ServerPort, "rtpaudio/serverport");
+	SAVELOAD(RTPAudio_SampleRate, "rtpaudio/samplerate");
+	SAVELOAD(RTPAudio_PayLoadType, "rtpaudio/payloadtype");
+	SAVELOAD(RTPAudio_SamplesPerPacket, "rtpaudio/samplesperpacket");
+	SAVELOAD(RTPAudio_UseBigEndian, "rtpaudio/usebigendian");
+#endif
+
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -1031,6 +1051,16 @@ void Settings::save() {
 	SAVELOAD(ExtPTT_SerialDevice, "extptt/serialdevice");
 	SAVELOAD(ExtPTT_InvertPTT, "extptt/invertptt");
 	SAVELOAD(ExtPTT_InvertSQL, "extptt/invertsql");
+#endif
+
+#ifdef USE_RTPAUDIO
+	SAVELOAD(RTPAudio_u16LocalPort, "rtpaudio/localport");
+	SAVELOAD(RTPAudio_qsServerIP, "rtpaudio/serverip");
+	SAVELOAD(RTPAudio_u16ServerPort, "rtpaudio/serverport");
+	SAVELOAD(RTPAudio_SampleRate, "rtpaudio/samplerate");
+	SAVELOAD(RTPAudio_PayLoadType, "rtpaudio/payloadtype");
+	SAVELOAD(RTPAudio_SamplesPerPacket, "rtpaudio/samplesperpacket");
+	SAVELOAD(RTPAudio_UseBigEndian, "rtpaudio/usebigendian");
 #endif
 
 	// LCD

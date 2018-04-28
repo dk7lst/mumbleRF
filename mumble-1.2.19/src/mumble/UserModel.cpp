@@ -46,6 +46,9 @@
 #include "Usage.h"
 #include "User.h"
 #include "ExternalPTT.h"
+#ifdef USE_RTPAUDIO
+	#include "AudioOutput.h"
+#endif
 
 QHash <Channel *, ModelItem *> ModelItem::c_qhChannels;
 QHash <ClientUser *, ModelItem *> ModelItem::c_qhUsers;
@@ -1301,6 +1304,9 @@ void UserModel::userTalkingChanged() {
 	updateOverlay();
 #ifdef USE_EXTPTT
 	if(g.extptt) g.extptt->setSQL(p->tsState != Settings::Passive);
+#endif
+#ifdef USE_RTPAUDIO
+	if(g.ao) g.ao->setSQL(p->tsState != Settings::Passive);
 #endif
 }
 
