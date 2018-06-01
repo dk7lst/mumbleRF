@@ -45,6 +45,7 @@ bool ExternalPTT::init() {
 #endif
       break;
     case 2:
+    case 3:
       { // avoid "error: jump to case label [-fpermissive]" message
         const char *pszDev = g.s.ExtPTT_SerialDevice.toLatin1().constData();
         printf("ExternalPTT::init(): Opening serial port \"%s\"...\n", pszDev);
@@ -70,7 +71,7 @@ bool ExternalPTT::getPTT() {
   if(!m_bInitialized) return false;
 
   bool bKeyed = g.s.ExtPTT_InvertPTT;
-  if(g.s.ExtPTT_Mode == 2) bKeyed ^= getCTS();
+  if(g.s.ExtPTT_Mode == 2 || g.s.ExtPTT_Mode == 3) bKeyed ^= getCTS();
 #ifdef USE_EXTPTT_WIRINGPI
   else bKeyed ^= digitalRead(g.s.ExtPTT_PinPTT) == HIGH;
 #endif
@@ -89,7 +90,7 @@ bool ExternalPTT::setSQL(bool state) {
 
   printf("ExternalPTT::setSQL(%s) called! Pin=%d\n", state ? "true" : "false", g.s.ExtPTT_PinSQL);
   state = (state ^ g.s.ExtPTT_InvertSQL) && !m_bKeyed;
-  if(g.s.ExtPTT_Mode == 2) setRTS(state);
+  if(g.s.ExtPTT_Mode == 2 || g.s.ExtPTT_Mode == 3) setRTS(state);
 #ifdef USE_EXTPTT_WIRINGPI
   else digitalWrite(g.s.ExtPTT_PinSQL, state ? HIGH : LOW);
 #endif
@@ -103,7 +104,9 @@ bool ExternalPTT::openCOM(const char *pszDevice) {
   if(m_hSerialPort != -1) {
     if(tcgetattr(m_hSerialPort, &m_termios) != -1) {
       struct termios attr = m_termios;
-      attr.c_cflag |= CRTSCTS | CLOCAL;
+      if(g.s.ExtPTT_Mode == 3) attr.c_cflag &= ~CRTSCTS;
+      else attr.c_cflag |= CRTSCTS;
+      attr.c_cflag |= CLOCAL;
       attr.c_oflag = 0;
       if(tcflush(m_hSerialPort, TCIOFLUSH) != -1) {
         if(tcsetattr(m_hSerialPort, TCSANOW, &attr) != -1) return true;

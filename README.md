@@ -50,8 +50,10 @@ PTT mode:
    properly initialized. The unix user Mumble is running on may need to be a
    member the group "gpio" (see /etc/group).
 1: GPIO mode with root privileges.
-2: RS232 mode. The Mumble user may need to be a member of the "dialout" group
-  (see /etc/group).
+2: RS232 mode with CRTSCTS-flag set. The Mumble user may need to be a
+   member of the "dialout" group (see /etc/group).
+3: RS232 mode with CRTSCTS-flag NOT set. The Mumble user may need to be a
+   member of the "dialout" group (see /etc/group).
 
 pttpin=x (default: 17)
 GPIO input pin (according to BCM counting) which keys Mumble transmit.
