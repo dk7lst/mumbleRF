@@ -90,7 +90,7 @@ Mumble source code: https://www.mumble.info/
 
 Main development of the RF-patches: Lars Struß, DK7LST (http://www.dk7lst.de/)
 
-Please understand that I can not give support for this project as it is just a hobby project in my spare time.
+Please understand that I can not provide support for this project as it is just a hobby project in my spare time.
 
 # Licensing and legal stuff
 The software is intended for educational purpose in the context of amateur radio, citizen band and other hobbyist radio services.
