@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Copyright 2005-2019 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+cp release/libmumbleoverlay.dylib release/MumbleOverlay.osax/Contents/MacOS/
+
+productbuild \
+	--component release/MumbleOverlay.osax /Library/ScriptingAdditions \
+	release/synth.pkg
+
+root=$(mktemp -d -t mumble-overlay-installer)
+/usr/bin/xar -f release/synth.pkg -x -C ${root}
+mkdir -p ${root}/Resources
+cp icons/mumble.osx.installer.png ${root}/Resources/bg.png
+VERSION=`defaults read "${PWD}/macx/osax/osax" "MumbleOverlayVersion"`
+MINCLIENT=`defaults read "${PWD}/macx/osax/osax" "MumbleOverlayMinMumbleVersion"`
+echo "<upgrade version=\"${VERSION}\" minclient=\"${MINCLIENT}\" />" > ${root}/upgrade.xml
+
+sed -i '' -e 's,<installer-gui-script minSpecVersion="1">,<installer-gui-script minSpecVersion="1"><title>Mumble Overlay</title><background mime-type="image/png" file="bg.png" />,' ${root}/Distribution
+
+pushd ${root}
+/usr/bin/xar -f MumbleOverlay.pkg --no-compress "^.*$" -c ./*
+popd
+
+cp ${root}/MumbleOverlay.pkg release/MumbleOverlay.pkg

@@ -1,10 +1,9 @@
 #!/bin/sh
-# Pakete installieren gemäß "https://wiki.mumble.info/wiki/BuildingLinux#For_Debian_.2F_Ubuntu":
-# Zusätzlich für WiringPi-Lib auch git installieren.
+# Install packets, see "https://wiki.mumble.info/wiki/BuildingLinux#For_Debian_.2F_Ubuntu":
 apt-get update
-apt-get install build-essential pkg-config qt4-dev-tools libqt4-dev libspeex1 \
-                libspeex-dev libboost-dev libasound2-dev libssl-dev g++ \
+apt-get install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \
+                libboost-dev libasound2-dev libssl-dev \
                 libspeechd-dev libzeroc-ice-dev libpulse-dev \
-                libcap-dev libspeexdsp-dev libprotobuf-dev protobuf-compiler \
+                libcap-dev libprotobuf-dev protobuf-compiler \
                 libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \
-                libg15daemon-client-dev libxi-dev git-core
+                libxi-dev

@@ -1,0 +1,92 @@
+.TH murmurd 1 "2016 May 9"
+.SH NAME
+murmurd - VoIP server.
+.SH SYNOPSIS
+.B murmurd
+[\fB-ini \fIinifile\fR] [\fB-fg\fR] [\fB-v\fR]
+.br
+.B murmurd \-supw\fR \fIpassword\fR [\fIserverid\fR]
+.br
+.B murmurd \-readsupw\fR [\fIserverid\fR]
+.br
+.B murmurd \-disablesu\fR [\fIserverid\fR]
+.br
+.B murmurd \-limits
+.br
+.B murmurd \-wipessl
+.br
+.B murmurd \-wipelogs
+.br
+.B murmurd \-version\fR|\fB\-\-version
+.br
+.B murmurd \-h\fR|\fB\-help\fR|\fB\-\-help
+.SH DESCRIPTION
+Murmur is the server component of Mumble, a low-latency, high quality VoIP
+application.
+.SH OPTIONS
+.TP
+.B \-h, \-help, \-\-help
+Show a summary of the options.
+.TP
+.B \-ini \fIinifile
+Specify which ini file to use. Without this option, murmur will search for
+a murmur.ini file and will fall back to builtin defaults if one isn't found.
+.TP
+.B \-fg
+Run in the foreground (do not fork).
+.TP
+.B \-v
+Verbose mode, slightly more information is logged.
+.TP
+.B \-supw \fIpassword\fR [\fIserverid\fR]
+This sets the SuperUser password for a server. SuperUser is a special account
+(similar to root) which bypasses all access controls. This command may be used
+while the server is running. Optionally takes a \fIserverid\fR representing the
+virtual server to set the password for.
+.TP
+.B \-readsupw\fR\ [\fIserverid\fR]
+Reads SuperUser password from stdin. Optionally takes a \fIserverid\fR
+representing the virtual server to set the password for.
+.TP
+.B \-disablesu\fR\ [\fIserverid\fR]
+Disables the SuperUser account. Optionally takes a \fIserverid\fR representing
+the virtual server to disable the SuperUser account on.
+
+Disabling the SuperUser account makes it impossible to log in as SuperUser
+until a new password is set. You can set a new SuperUser password with the
+\-supw parameter.
+.TP
+.B \-limits
+Tests and shows how many file descriptors and threads can be created. The
+purpose of this option is to test how many clients Murmur can handle. Murmur
+will exit after this test.
+.TP
+.B \-wipessl
+Remove SSL certificates from database.
+.TP
+.B \-wipelogs
+Remove all log entries from database.
+.TP
+.B \-version, \-\-version
+Show version information.
+.SH SIGNALS
+.TP
+.BR SIGHUP
+Perform a log rotation.
+This causes murmurd to re-open its log file.
+.TP
+.BR SIGUSR1
+Gracefully reload the TLS settings specified in murmur.ini without interrupting service.
+
+When this signal is received, Murmur will apply the new TLS settings (certificate,
+private key, and Diffie-Hellman parameters) to all virtual servers that use the TLS settings
+from murmur.ini.
+
+Virtual servers that have overridden the settings from murmur.ini will not
+be affected by this signal. Those servers can be updated using the updateCertificate RPC call.
+.SH SEE ALSO
+.BR mumble (1),
+.BR murmur\-user\-wrapper (1).
+.br
+.SH AUTHORS
+mumble and murmurd were written by The Mumble Developers.

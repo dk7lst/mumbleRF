@@ -1,0 +1,45 @@
+sudo: required # Required for apt-get build-dep
+language: cpp
+compiler: gcc
+
+addons:
+  sonarcloud:
+    organization: "mumble-voip"
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      env: MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu
+    - os: linux
+      dist: trusty
+      env: MUMBLE_QT=qt4 MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
+    - os: linux
+      dist: xenial
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu
+    - os: linux
+      dist: xenial
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-linux-gnu MUMBLE_NO_PCH=1
+    - os: linux
+      dist: xenial
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=i686-w64-mingw32
+    - os: linux
+      dist: xenial
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-w64-mingw32
+    - os: osx
+      env: MUMBLE_QT=qt5 MUMBLE_HOST=x86_64-apple-darwin
+
+before_install:
+    - ./scripts/travis-ci/before_install.bash
+
+script:
+    - ./scripts/travis-ci/script.bash
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
