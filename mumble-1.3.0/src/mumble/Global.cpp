@@ -6,6 +6,7 @@
 #include "mumble_pch.hpp"
 
 #include "Global.h"
+#include "ExternalPTT.h"
 
 Global *Global::g_global_struct;
 
@@ -169,9 +170,16 @@ Global::Global() {
 		qdBasePath.mkpath(QLatin1String("Themes"));
 
 	qs->setIniCodec("UTF-8");
+
+#ifdef USE_EXTPTT
+	extptt = new ExternalPTT();
+#endif
 }
 
 Global::~Global() {
+#ifdef USE_EXTPTT
+	delete extptt;
+#endif
 	delete qs;
 }
 

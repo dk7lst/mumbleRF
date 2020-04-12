@@ -435,6 +435,10 @@ int main(int argc, char **argv) {
 
 	g.lcd = new LCD();
 
+#ifdef USE_EXTPTT
+	if(g.extptt) g.extptt->init();
+#endif
+
 	// Process any waiting events before initializing our MainWindow.
 	// The mumble:// URL support for Mac OS X happens through AppleEvents,
 	// so we need to loop a little before we begin.

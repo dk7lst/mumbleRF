@@ -11,6 +11,11 @@
 #include "Global.h"
 #include "AudioOutput.h"
 
+#include "ExternalPTT.h"
+#ifdef USE_RTPAUDIO
+	#include "AudioOutput.h"
+#endif
+
 QHash<unsigned int, ClientUser *> ClientUser::c_qmUsers;
 QReadWriteLock ClientUser::c_qrwlUsers;
 
@@ -131,6 +136,20 @@ QString ClientUser::getFlagsString() const {
 }
 
 void ClientUser::setTalking(Settings::TalkState ts) {
+#if USE_EXTPTT || USE_RTPAUDIO
+	static bool bLastSQL = true; // Force sync on first call
+	bool bSQL = !c_qlTalking.isEmpty();
+	if(bSQL != bLastSQL) {
+ #ifdef USE_EXTPTT
+		if(g.extptt) g.extptt->setSQL(bSQL);
+ #endif
+ #ifdef USE_RTPAUDIO
+		if(g.ao) g.ao->setSQL(bSQL);
+ #endif
+ 		bLastSQL = bSQL;
+ 	}
+#endif
+
 	if (tsState == ts)
 		return;
 

@@ -176,6 +176,11 @@ class AudioInput : public QThread {
 		void run() Q_DECL_OVERRIDE = 0;
 		virtual bool isAlive() const;
 		bool isTransmitting() const;
+#ifdef USE_RTPAUDIO
+		virtual bool getPTT() const {
+			return false;
+		}
+#endif
 };
 
 #endif

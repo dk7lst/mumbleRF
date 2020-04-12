@@ -19,6 +19,7 @@
 #include "Global.h"
 #include "NetworkConfig.h"
 #include "VoiceRecorder.h"
+#include "ExternalPTT.h"
 
 #ifdef USE_RNNOISE
 extern "C" {
@@ -903,6 +904,13 @@ void AudioInput::encodeAudioFrame() {
 	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress)) || g.bPushToMute || (voiceTargetID < 0)) {
 		bIsSpeech = false;
 	}
+
+#ifdef USE_EXTPTT
+	if(g.extptt) bIsSpeech |= g.extptt->getPTT();
+#endif
+#ifdef USE_RTPAUDIO
+	if(g.ai) bIsSpeech |= g.ai->getPTT();
+#endif
 
 	if (bIsSpeech) {
 		iSilentFrames = 0;

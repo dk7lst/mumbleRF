@@ -3,10 +3,6 @@ A patched version of the Mumble voice chat software for use with two-way radio t
 
 This software allows to connect two-way-radio transceivers to Mumble/murmur servers in order to extend the range of radio-frequency communications.
 
-## Warning
-This version currently only runs on Debian/Raspbian 9 (stretch) and has some compiling issues with Debian 10 (buster).
-As I don't use this software at the moment and I have only limited time, there is no fix planned in the near future.
-
 # Features
 The software provides:
 - A squelch (SQL) output to be connected with the transceiver's PTT (push to talk) input in order to set the transceiver to transmit-mode when audio is received from the mumble server.

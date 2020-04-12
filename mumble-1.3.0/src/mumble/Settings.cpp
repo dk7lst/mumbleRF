@@ -384,7 +384,26 @@ Settings::Settings() {
 	bDisableCELT = false;
 	disablePublicList = false;
 	disableConnectDialogEditing = false;
-	
+
+#ifdef USE_EXTPTT
+	ExtPTT_Mode = 0;
+	ExtPTT_PinPTT = 17; // Input to switch Mumble to TX-mode
+	ExtPTT_PinSQL = 27; // Output to set when Mumble receives audio
+	ExtPTT_SerialDevice = QLatin1String("/dev/ttyUSB0");
+	ExtPTT_InvertPTT = true;
+	ExtPTT_InvertSQL = false;
+#endif
+
+#ifdef USE_RTPAUDIO
+	RTPAudio_u16LocalPort = 30300;
+	RTPAudio_qsServerIP = QString::fromUtf8("127.0.0.1");
+	RTPAudio_u16ServerPort = 30300;
+	RTPAudio_SampleRate = 44100;
+	RTPAudio_PayLoadType = 11; // 44100 Hz, 16 bit signed short, big endian; see https://tools.ietf.org/html/rfc3551#section-4.5.11
+	RTPAudio_SamplesPerPacket = RTPAudio_SampleRate / 50;
+	RTPAudio_UseBigEndian = true;
+#endif
+
 	// Config updates
 	uiUpdateCounter = 0;
 
@@ -1113,6 +1132,25 @@ void Settings::save() {
 	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
 	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
 	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
+
+#ifdef USE_EXTPTT
+	SAVELOAD(ExtPTT_Mode, "extptt/mode");
+	SAVELOAD(ExtPTT_PinPTT, "extptt/pttpin");
+	SAVELOAD(ExtPTT_PinSQL, "extptt/sqlpin");
+	SAVELOAD(ExtPTT_SerialDevice, "extptt/serialdevice");
+	SAVELOAD(ExtPTT_InvertPTT, "extptt/invertptt");
+	SAVELOAD(ExtPTT_InvertSQL, "extptt/invertsql");
+#endif
+
+#ifdef USE_RTPAUDIO
+	SAVELOAD(RTPAudio_u16LocalPort, "rtpaudio/localport");
+	SAVELOAD(RTPAudio_qsServerIP, "rtpaudio/serverip");
+	SAVELOAD(RTPAudio_u16ServerPort, "rtpaudio/serverport");
+	SAVELOAD(RTPAudio_SampleRate, "rtpaudio/samplerate");
+	SAVELOAD(RTPAudio_PayLoadType, "rtpaudio/payloadtype");
+	SAVELOAD(RTPAudio_SamplesPerPacket, "rtpaudio/samplesperpacket");
+	SAVELOAD(RTPAudio_UseBigEndian, "rtpaudio/usebigendian");
+#endif
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
