@@ -23,8 +23,13 @@ https://wiki.mumble.info/wiki/BuildingLinux#For_Debian_.2F_Ubuntu
 # Preparations
 Run ./install-dep.sh as root to install many of Mumble's dependencies.
 
-Use ./wiringpi-download.sh and ./wiringpi-build.sh to download and build
-the WiringPi-library to use Raspberry Pi GPIO-ports.
+Install the WiringPi-library to use Raspberry Pi GPIO-ports:
+apt-get install wiringpi
+
+You can also use ./wiringpi-download.sh and ./wiringpi-build.sh to download
+and build the WiringPi-library manually from the unofficial mirror on GitHub
+as the original author stopped working on it. Use at own risk as I don't know
+who is running that repository.
 
 Add unix user to the groups "audio" (for ALSA support), "sudo" (for
 WiringPi installer) and "gpio" (for GPIO without root privileges).
